@@ -13,6 +13,9 @@ class User(BaseModel):
 def create_user(user: User):
     # check username is unique
     # encrypt password with sha256 algorithm (md5 is not secure)
+    import hashlib
+    user.password = hashlib.sha256(user.password.encode()).hexdigest()
+
     # save user to database
     import sqlite3
     try:
