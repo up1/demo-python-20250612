@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "68a44fc1-8d12-43ca-a997-94b4e2f848a7",
+		"name": "testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "1453931",
+		"_collection_link": "https://red-firefly-245852.postman.co/workspace/ThailandPost~61950a6c-9eb7-4c21-96ec-a41731bf5a32/collection/1453931-68a44fc1-8d12-43ca-a997-94b4e2f848a7?action=share&source=collection_link&creator=1453931"
+	},
+	"item": [
+		{
+			"name": "http://127.0.0.1:8000/hello",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Check response\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(\"Hello world\").to.eql(jsonData.message);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "http://127.0.0.1:8000/hello"
+			},
+			"response": []
+		},
+		{
+			"name": "https://jsonplaceholder.typicode.com/users/1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"const schema = {",
+							"    type: \"object\",",
+							"    properties: {",
+							"        id: { type: \"integer\" },",
+							"        name: { type: \"string\" },",
+							"        username: { type: \"string\" },",
+							"        email: { type: \"string\", format: \"email\" },",
+							"        address: {",
+							"            type: \"object\",",
+							"            properties: {",
+							"                street: { type: \"string\" },",
+							"                suite: { type: \"string\" },",
+							"                city: { type: \"string\" },",
+							"                zipcode: { type: \"string\" },",
+							"                geo: {",
+							"                    type: \"object\",",
+							"                    properties: {",
+							"                        lat: { type: \"string\" },",
+							"                        lng: { type: \"string\" }",
+							"                    },",
+							"                    required: [\"lat\", \"lng\"]",
+							"                }",
+							"            },",
+							"            required: [\"street\", \"suite\", \"city\", \"zipcode\", \"geo\"]",
+							"        },",
+							"        phone: { type: \"string\" },",
+							"        website: { type: \"string\" },",
+							"        company: {",
+							"            type: \"object\",",
+							"            properties: {",
+							"                name: { type: \"string\" },",
+							"                catchPhrase: { type: \"string\" },",
+							"                bs: { type: \"string\" }",
+							"            },",
+							"            required: [\"name\", \"catchPhrase\", \"bs\"]",
+							"        }",
+							"    },",
+							"    required: [\"id\", \"name\", \"username\", \"email\", \"address\", \"phone\", \"website\", \"company\"]",
+							"};",
+							"",
+							"pm.test(\"Response matches JSON schema\", function() {",
+							"    pm.expect(tv4.validate(response, schema)).to.be.true;",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "https://jsonplaceholder.typicode.com/users/1"
+			},
+			"response": []
+		}
+	]
+}
