@@ -113,7 +113,7 @@
 			"response": []
 		},
 		{
-			"name": "http://127.0.0.1:8000/api/users",
+			"name": "New user :: Success case",
 			"event": [
 				{
 					"listen": "test",
@@ -153,7 +153,48 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"somkiat\",\n    \"password\": \"1234\",\n    \"email\": \"somkiat@xx.com\"\n}",
+					"raw": "{\n    \"name\": \"somkiat6\",\n    \"password\": \"1234\",\n    \"email\": \"somkiat@xx.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://127.0.0.1:8000/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "New user :: Failure case 200 duplicated name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Check error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.detail).to.eql(\"Username already exists\");",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"somkiat6\",\n    \"password\": \"1234\",\n    \"email\": \"somkiat@xx.com\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
