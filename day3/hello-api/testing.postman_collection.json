@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "26a3d0cc-5e69-43d6-9af2-dd822eba5055",
+		"_postman_id": "77bf8749-71c9-421e-bd0c-47db0f263afd",
 		"name": "testing",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "1453931",
-		"_collection_link": "https://red-firefly-245852.postman.co/workspace/ThailandPost~61950a6c-9eb7-4c21-96ec-a41731bf5a32/collection/1453931-26a3d0cc-5e69-43d6-9af2-dd822eba5055?action=share&source=collection_link&creator=1453931"
+		"_collection_link": "https://red-firefly-245852.postman.co/workspace/ThailandPost~61950a6c-9eb7-4c21-96ec-a41731bf5a32/collection/1453931-77bf8749-71c9-421e-bd0c-47db0f263afd?action=share&source=collection_link&creator=1453931"
 	},
 	"item": [
 		{
@@ -202,6 +202,28 @@
 					}
 				},
 				"url": "http://127.0.0.1:8000/api/users"
+			},
+			"response": []
+		},
+		{
+			"name": "http://127.0.0.1:8000/api/track",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token 12345",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"somkiat6\",\n    \"password\": \"1234\",\n    \"email\": \"somkiat@xx.com\"\n}"
+				},
+				"url": "http://127.0.0.1:8000/api/track"
 			},
 			"response": []
 		}

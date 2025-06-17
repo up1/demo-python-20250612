@@ -1,10 +1,11 @@
 from fastapi import FastAPI
 from hello import router as hello_router
 from user import router as user_router
+from track import router as track_router
 
 # Create sqlite database and tables
-import sqlite3
-con = sqlite3.connect("users.db")
+from db import open_database, close_database
+con = open_database()
 cur = con.cursor()
 cur.execute("""
     CREATE TABLE IF NOT EXISTS users(
@@ -14,7 +15,7 @@ cur.execute("""
             email TEXT)
     """) 
 con.commit()
-con.close()
+close_database(con)
 
 
 # Create the FastAPI app
@@ -23,3 +24,4 @@ app = FastAPI()
 # Include the hello router
 app.include_router(hello_router)
 app.include_router(user_router)
+app.include_router(track_router)

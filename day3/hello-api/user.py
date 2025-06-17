@@ -1,5 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, EmailStr
+from db import open_database, close_database
+import sqlite3
+
 
 router = APIRouter()
 
@@ -17,14 +20,13 @@ def create_user(user: User):
     user.password = hashlib.sha256(user.password.encode()).hexdigest()
 
     # save user to database
-    import sqlite3
     try:
-        con = sqlite3.connect("users.db")
+        con = open_database()
         cur = con.cursor()
         print(user.model_dump(exclude={"password"}))
         cur.execute("INSERT INTO users (name, email, password) VALUES (?, ?, ?)", (user.name, user.email, user.password))
         con.commit()
-        con.close()
+        close_database(con)
 
         return {
             "id": user.id,
@@ -34,6 +36,5 @@ def create_user(user: User):
     except sqlite3.IntegrityError:
         raise HTTPException(status_code=400, detail="Username already exists")
     finally:
-        if con:
-            con.close()
+        close_database(con)
 
